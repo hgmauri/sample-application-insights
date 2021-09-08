@@ -1,0 +1,1 @@
+# sample-application-insights
