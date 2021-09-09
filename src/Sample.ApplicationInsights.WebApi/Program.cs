@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Sample.ApplicationInsights.WebApi.Core.Extensions;
 using Serilog;
 
@@ -39,9 +40,13 @@ namespace Sample.ApplicationInsights.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureLogging(builder =>
+                    {
+                        builder.ClearProviders();
+                        builder.AddSerilog();
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }
